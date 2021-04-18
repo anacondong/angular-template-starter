@@ -1,0 +1,20 @@
+<div>
+  <div>
+    <pm-member-list [displayCode]="displayCode$ | async"
+                    [members]="members$ | async"
+                    [selectedMember]="selectedMember$ | async"
+                    [errorMessage]="errorMessage$ | async"
+                    (displayCodeChanged)="checkChanged()"
+                    (initializeNewMember)="newMember()"
+                    (memberWasSelected)="memberSelected($any($event))"></pm-member-list>
+  </div>
+  <div>
+    <pm-member-edit [selectedMember]="selectedMember$ | async"
+                    [errorMessage]="errorMessage$ | async"
+                    (clearCurrent)="clearMember()"
+                    (update)="updateMember($any($event))"
+                    (delete)="deleteMember($any($event))"
+                    (create)="saveMember($any($event))">
+    </pm-member-edit>
+  </div>
+</div>
