@@ -10,9 +10,20 @@ import { Member } from './member';
   providedIn: 'root',
 })
 export class MemberService {
+  private rootPath = 'http://localhost9000';
   private membersUrl = 'api/members';
+  private membersEndpoint = '/members';
 
   constructor(private http: HttpClient) { }
+
+  getMyMember(): Observable<Member[]> {
+    return this.http.get<Member[]>(this.rootPath + this.membersEndpoint)
+    .pipe(
+      tap(data => console.log(JSON.stringify(data))),
+      catchError(this.handleError)
+    );;
+  }
+
 
   getMembers(): Observable<Member[]> {
     return this.http.get<Member[]>(this.membersUrl)

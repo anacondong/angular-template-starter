@@ -3,6 +3,7 @@ const app = express()
 const mongoose = require('mongoose')
 const Product = require('./models/product')
 const User = require('./models/user')
+const Member = require('./models/member')
 
 const MONGODB_URI =
   process.env.MONGODB_URI || 'mongodb://localhost:27017/node-api-101'
@@ -111,6 +112,56 @@ app.delete('/users/:id', async (req, res) => {
 
   try {
     await User.findByIdAndDelete(id)
+    res.status(204).end()
+  } catch (error) {
+    res.status(400).json(error)
+  }
+})
+
+app.get('/members', async (req, res) => {
+  const members = await Member.find({})
+  res.json(members)
+})
+
+app.get('/members/:id', async (req, res) => {
+  const { id } = req.params
+
+  try {
+    const member = await Member.findById(id)
+    res.json(member)
+  } catch (error) {
+    res.status(400).json(error)
+  }
+})
+
+app.post('/members', async (req, res) => {
+  const payload = req.body
+  try {
+    const member = new Member(payload)
+    await member.save()
+    res.status(201).end()
+  } catch (error) {
+    res.status(400).json(error)
+  }
+})
+
+app.put('/members/:id', async (req, res) => {
+  const payload = req.body
+  const { id } = req.params
+
+  try {
+    const member = await Member.findByIdAndUpdate(id, { $set: payload })
+    res.json(member)
+  } catch (error) {
+    res.status(400).json(error)
+  }
+})
+
+app.delete('/members/:id', async (req, res) => {
+  const { id } = req.params
+
+  try {
+    await Member.findByIdAndDelete(id)
     res.status(204).end()
   } catch (error) {
     res.status(400).json(error)

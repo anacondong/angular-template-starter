@@ -18,7 +18,8 @@ export class MemberEffects {
     return this.actions$
       .pipe(
         ofType(MemberPageActions.loadMembers),
-        mergeMap(() => this.memberService.getMembers()
+        // mergeMap(() => this.memberService.getMembers()  // here is call API
+        mergeMap(() => this.memberService.getMyMember()  // here is call API
           .pipe(
             map(members => MemberApiActions.loadMembersSuccess({ members })),
             catchError(error => of(MemberApiActions.loadMembersFailure({ error })))
@@ -32,7 +33,7 @@ export class MemberEffects {
       .pipe(
         ofType(MemberPageActions.updateMember),
         concatMap(action =>
-          this.memberService.updateMember(action.member)
+          this.memberService.updateMember(action.member) // // here is call API
             .pipe(
               map(member => MemberApiActions.updateMemberSuccess({ member })),
               catchError(error => of(MemberApiActions.updateMemberFailure({ error })))
@@ -46,7 +47,7 @@ export class MemberEffects {
       .pipe(
         ofType(MemberPageActions.createMember),
         concatMap(action =>
-          this.memberService.createMember(action.member)
+          this.memberService.createMember(action.member) // // here is call API
             .pipe(
               map(member => MemberApiActions.createMemberSuccess({ member })),
               catchError(error => of(MemberApiActions.createMemberFailure({ error })))
@@ -58,7 +59,7 @@ export class MemberEffects {
   deleteMember$ = createEffect(() => {
     return this.actions$
       .pipe(
-        ofType(MemberPageActions.deleteMember),
+        ofType(MemberPageActions.deleteMember),  //// here is call API
         mergeMap(action =>
           this.memberService.deleteMember(action.memberId).pipe(
             map(() => MemberApiActions.deleteMemberSuccess({ memberId: action.memberId })),
@@ -68,3 +69,21 @@ export class MemberEffects {
       );
   });
 }
+
+
+// getTasks() {
+//   return this.http.get(this.rootURL + '/tasks');
+// }
+
+// addTask(task: any) {
+//   return this.http.post(this.rootURL + '/task', {task});
+// }
+
+// editTask(task: any) {
+//   return this.http.put(this.rootURL + '/task', {task});
+// }
+
+// deleteTask(taskId: any) {
+//   console.log('deleting task:::', taskId);
+//   return this.http.delete(`${this.rootURL}/task/${taskId}`);
+// }
