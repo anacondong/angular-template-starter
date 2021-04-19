@@ -10,7 +10,6 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
     "random-id": "^1.0.4"

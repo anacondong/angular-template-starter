@@ -10,27 +10,30 @@ import { Member } from './member';
   providedIn: 'root',
 })
 export class MemberService {
-  private rootPath = 'http://localhost9000';
+  private rootPath = 'http://localhost:9000';
   private membersUrl = 'api/members';
   private membersEndpoint = '/members';
+  private endointFullPath = this.rootPath + this.membersEndpoint
+
+
 
   constructor(private http: HttpClient) { }
 
-  getMyMember(): Observable<Member[]> {
-    return this.http.get<Member[]>(this.rootPath + this.membersEndpoint)
-    .pipe(
-      tap(data => console.log(JSON.stringify(data))),
-      catchError(this.handleError)
-    );;
-  }
-
+  // Call API
+  // getMyMember(): Observable<Member[]> {
+  //   return this.http.get<Member[]>(this.rootPath + this.membersEndpoint)
+  //   .pipe(
+  //     tap(data => console.log(JSON.stringify(data))),
+  //     catchError(this.handleError)
+  //   );;
+  // }
 
   getMembers(): Observable<Member[]> {
     return this.http.get<Member[]>(this.membersUrl)
-      .pipe(
-        tap(data => console.log(JSON.stringify(data))),
-        catchError(this.handleError)
-      );
+    .pipe(
+      tap(data => console.log(JSON.stringify(data))),
+      catchError(this.handleError)
+    );
   }
 
   createMember(member: Member): Observable<Member> {
@@ -83,3 +86,21 @@ export class MemberService {
   }
 
 }
+
+
+// getTasks() {
+//   return this.http.get(this.rootURL + '/tasks');
+// }
+
+// addTask(task: any) {
+//   return this.http.post(this.rootURL + '/task', {task});
+// }
+
+// editTask(task: any) {
+//   return this.http.put(this.rootURL + '/task', {task});
+// }
+
+// deleteTask(taskId: any) {
+//   console.log('deleting task:::', taskId);
+//   return this.http.delete(`${this.rootURL}/task/${taskId}`);
+// }

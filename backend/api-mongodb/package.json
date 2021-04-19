@@ -16,8 +16,7 @@
     "Mongoose",
     "Express.js"
   ],
-  "author": "Chai Phonbopit",
-  "license": "MIT",
+  "author": "",
   "dependencies": {
     "express": "4.17.1",
     "mongoose": "5.6.9"

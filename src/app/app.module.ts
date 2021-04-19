@@ -27,7 +27,7 @@ import { EffectsModule } from '@ngrx/effects';
   imports: [
     BrowserModule,
     HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(InitData),
+    HttpClientInMemoryWebApiModule.forRoot(InitData), // comment this line if you using call API server
     UserModule,
     AppRoutingModule,
     StoreModule.forRoot({}),
